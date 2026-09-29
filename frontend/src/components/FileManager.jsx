@@ -394,12 +394,12 @@ export default function FileManager({ user, onOpenTrash }) {
         <table className="file-table">
           <thead>
             <tr>
-              <th style={{ width: '35%' }}>File Name</th>
-              <th style={{ width: '12%' }}>Size</th>
-              <th style={{ width: '13%' }}>Status</th>
-              <th style={{ width: '12%' }}>Versions</th>
-              <th style={{ width: '15%' }}>Uploaded Date</th>
-              <th style={{ width: '13%', textAlign: 'right' }}>Actions</th>
+              <th>File Name</th>
+              <th style={{ width: '100px' }}>Size</th>
+              <th style={{ width: '115px' }}>Status</th>
+              <th style={{ width: '95px' }}>Versions</th>
+              <th style={{ width: '150px' }}>Uploaded Date</th>
+              <th style={{ width: '210px', textAlign: 'right' }}>Actions</th>
             </tr>
           </thead>
           <tbody>

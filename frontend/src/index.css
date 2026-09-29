@@ -470,7 +470,6 @@ body {
   border-collapse: collapse;
   text-align: left;
   font-size: 0.875rem;
-  table-layout: fixed;
 }
 
 .file-table th {
@@ -489,7 +488,6 @@ body {
   border-bottom: 1px solid var(--border-color);
   vertical-align: middle;
   white-space: nowrap;
-  overflow: hidden;
 }
 
 .file-table tbody tr:hover {
@@ -501,7 +499,6 @@ body {
   align-items: center;
   gap: 0.75rem;
   min-width: 0;
-  width: 100%;
 }
 
 .file-icon-box {
@@ -518,12 +515,11 @@ body {
 .file-name-text {
   font-weight: 600;
   color: #f1f5f9;
-  flex: 1;
-  min-width: 0;
+  max-width: 280px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  display: block;
+  display: inline-block;
 }
 
 .file-size-badge {
@@ -560,8 +556,7 @@ body {
   gap: 0.4rem;
   color: var(--text-secondary);
   font-size: 0.8rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .action-buttons-group {
@@ -570,6 +565,7 @@ body {
   gap: 0.35rem;
   flex-shrink: 0;
   white-space: nowrap;
+  justify-content: flex-end;
 }
 
 .btn-action-icon {
