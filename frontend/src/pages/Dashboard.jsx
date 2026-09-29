@@ -69,11 +69,11 @@ export default function Dashboard({ user, setUser, isAuthOpen, setIsAuthOpen }) 
       <section className="hero">
         <div className="hero-pill">
           <span className="hero-pill-dot"></span>
-          <span>Phase 4 Live &bull; Nginx &bull; HTTPS &bull; Backups &bull; Analytics</span>
+          <span>Enterprise Cloud Storage &bull; End-to-End Encryption &bull; High Availability</span>
         </div>
         <h1>Self-Hosted Cloud Storage Architecture</h1>
         <p>
-          Hardened cloud storage platform: Nginx reverse proxy, local HTTPS, automated backups, 
+          Secure and scalable cloud storage platform: reverse proxy, automated backups, 
           immutable versions, secure share links, soft-delete recycle bin, and real-time storage analytics.
         </p>
       </section>
