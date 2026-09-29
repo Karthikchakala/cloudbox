@@ -19,9 +19,9 @@ CloudBox images are published publicly to Docker Hub under the `karthik11105` na
 
 | Service | Docker Hub Image | Function |
 |---|---|---|
-| **Backend API** | `karthik11105/cloudbox-backend:v1.0.0` | Python Flask REST APIs, WSGI Gunicorn, Auth & Storage Engine |
-| **Background Worker** | `karthik11105/cloudbox-worker:v1.0.0` | Celery asynchronous worker for uploads, backups, metadata processing |
-| **Frontend SPA** | `karthik11105/cloudbox-frontend:v1.0.0` | React / Vite SPA with Google Drive-style media viewer |
+| **Backend API** | `karthik11105/cloudbox-backend:v1.0.1` | Python Flask REST APIs, WSGI Gunicorn, Auth & Storage Engine |
+| **Background Worker** | `karthik11105/cloudbox-worker:v1.0.1` | Celery asynchronous worker for uploads, backups, metadata processing |
+| **Frontend SPA** | `karthik11105/cloudbox-frontend:v1.0.1` | React / Vite SPA with Google Drive-style media viewer |
 | **Reverse Proxy** | `nginx:1.27-alpine` | SSL termination, rate-limiting, CSP headers, reverse proxy |
 | **Database** | `postgres:16-alpine` | Relational database for users, file metadata, permissions, trash |
 | **Object Storage** | `cgr.dev/chainguard/minio:latest` | S3-compatible high-performance object store |
