@@ -15,7 +15,6 @@ import {
   CheckCircle2, 
   AlertCircle,
   HardDrive,
-  Hash,
   Clock,
   Layers,
   GitBranch,
@@ -395,19 +394,18 @@ export default function FileManager({ user, onOpenTrash }) {
         <table className="file-table">
           <thead>
             <tr>
-              <th>File Name</th>
-              <th>Size</th>
-              <th>Status</th>
-              <th>Versions</th>
-              <th>Uploaded Date</th>
-              <th>SHA-256 Checksum</th>
-              <th style={{ textAlign: 'right' }}>Actions</th>
+              <th style={{ width: '35%' }}>File Name</th>
+              <th style={{ width: '12%' }}>Size</th>
+              <th style={{ width: '13%' }}>Status</th>
+              <th style={{ width: '12%' }}>Versions</th>
+              <th style={{ width: '15%' }}>Uploaded Date</th>
+              <th style={{ width: '13%', textAlign: 'right' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
             {files.length === 0 ? (
               <tr>
-                <td colSpan="7" style={{ textAlign: 'center', padding: '3rem 1rem', color: 'var(--text-muted)' }}>
+                <td colSpan="6" style={{ textAlign: 'center', padding: '3rem 1rem', color: 'var(--text-muted)' }}>
                   {loading ? 'Loading file catalog...' : (search ? 'No files match your search query.' : 'No files uploaded yet. Upload your first file above!')}
                 </td>
               </tr>
@@ -449,12 +447,6 @@ export default function FileManager({ user, onOpenTrash }) {
                       <Clock size={13} />
                       <span>{new Date(file.created_at).toLocaleDateString()} {new Date(file.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                     </div>
-                  </td>
-                  <td>
-                    <span className="checksum-tag" title={file.checksum_sha256}>
-                      <Hash size={12} />
-                      {file.checksum_sha256.substring(0, 8)}...
-                    </span>
                   </td>
                   <td style={{ textAlign: 'right' }}>
                     <div className="action-buttons-group">

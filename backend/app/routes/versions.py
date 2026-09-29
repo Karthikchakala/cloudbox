@@ -7,6 +7,7 @@ from app.models.file import File
 from app.models.file_version import FileVersion
 from app.services.storage_service import storage_service
 from app.services.security import jwt_required
+from app.services.cache_service import cache_service
 
 versions_bp = Blueprint("versions", __name__, url_prefix="/api/files")
 
@@ -26,6 +27,23 @@ def list_versions(file_id):
         .order_by(FileVersion.version_number.desc())
         .all()
     )
+
+    if not versions:
+        # Auto-create Version 1 entry if legacy file has no version records
+        v1 = FileVersion(
+            file_id=file_record.id,
+            version_number=1,
+            object_key=file_record.object_key,
+            original_filename=file_record.original_filename,
+            content_type=file_record.content_type,
+            size_bytes=file_record.size_bytes,
+            checksum_sha256=file_record.checksum_sha256,
+            created_by=g.current_user.id,
+            created_at=file_record.created_at,
+        )
+        db.session.add(v1)
+        db.session.commit()
+        versions = [v1]
 
     max_version = versions[0].version_number if versions else 1
 
@@ -100,12 +118,29 @@ def upload_new_version(file_id):
         }), 500
 
     try:
-        latest_version = (
+        existing_versions = (
             FileVersion.query.filter_by(file_id=file_id)
             .order_by(FileVersion.version_number.desc())
-            .first()
+            .all()
         )
-        next_version_num = (latest_version.version_number + 1) if latest_version else 1
+        if not existing_versions:
+            # Auto-create Version 1 from current file record
+            v1 = FileVersion(
+                file_id=file_record.id,
+                version_number=1,
+                object_key=file_record.object_key,
+                original_filename=file_record.original_filename,
+                content_type=file_record.content_type,
+                size_bytes=file_record.size_bytes,
+                checksum_sha256=file_record.checksum_sha256,
+                created_by=g.current_user.id,
+                created_at=file_record.created_at,
+            )
+            db.session.add(v1)
+            db.session.flush()
+            next_version_num = 2
+        else:
+            next_version_num = existing_versions[0].version_number + 1
 
         new_version = FileVersion(
             file_id=file_id,
@@ -125,6 +160,9 @@ def upload_new_version(file_id):
         file_record.size_bytes = file_size
         file_record.checksum_sha256 = checksum
         db.session.commit()
+
+        # Invalidate cached file listings for user
+        cache_service.invalidate_user_cache(str(g.current_user.id))
 
         return jsonify({
             "message": f"Version {next_version_num} uploaded successfully.",
@@ -258,6 +296,9 @@ def restore_version(file_id, version_id):
         file_record.checksum_sha256 = target_version.checksum_sha256
         db.session.commit()
 
+        # Invalidate cached file listings for user
+        cache_service.invalidate_user_cache(str(g.current_user.id))
+
         return jsonify({
             "message": f"Successfully restored version {target_version.version_number} as version {next_version_num}.",
             "version": new_version.to_dict(is_current=True),
@@ -322,6 +363,9 @@ def delete_version(file_id, version_id):
                 file_record.checksum_sha256 = remaining_latest.checksum_sha256
 
         db.session.commit()
+
+        # Invalidate cached file listings for user
+        cache_service.invalidate_user_cache(str(g.current_user.id))
 
         # Delete MinIO object if no other reference exists
         other_ref = FileVersion.query.filter_by(object_key=object_key_to_delete).first()
