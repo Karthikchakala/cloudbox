@@ -1,0 +1,40 @@
+# Git & Metadata
+.git
+.gitignore
+.github
+
+# Environment & Secrets
+.env
+*.env
+!.env.example
+*.pem
+*.key
+certs/
+
+# Dependencies & Build Artefacts
+node_modules
+npm-debug.log
+dist
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local Dumps & Backups
+backups/
+test_downloads/
+temp_e2e_*
+
+# OS & Logs
+.DS_Store
+Thumbs.db
+*.log
+*.swp
+*.swo

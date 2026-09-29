@@ -1,0 +1,103 @@
+# CloudBox Production Docker Compose Configuration
+# Usage: docker compose -f compose.yaml -f compose.prod.yaml up -d
+
+services:
+  nginx:
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 256M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  frontend:
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  backend:
+    restart: always
+    command: gunicorn --bind 0.0.0.0:5000 --workers 4 --threads 2 --timeout 120 wsgi:app
+    environment:
+      - APP_ENV=production
+      - FLASK_ENV=production
+      - FLASK_DEBUG=0
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 1024M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  worker:
+    restart: always
+    command: celery -A app.celery_app.celery worker --loglevel=info -c 4 --max-tasks-per-child=100
+    environment:
+      - APP_ENV=production
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 1024M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  redis:
+    restart: always
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru --save 60 1 --requirepass ${REDIS_PASSWORD:-password123}
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 384M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  db:
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 1024M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  minio:
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 1024M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

@@ -1,0 +1,67 @@
+# CloudBox Prometheus Alerting Rules
+
+groups:
+  - name: cloudbox_alerts
+    rules:
+      - alert: BackendServiceDown
+        expr: up{job="cloudbox-backend"} == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "CloudBox Flask Backend is offline"
+          description: "The core backend API container has been unreachable for more than 30 seconds."
+
+      - alert: DatabaseDisconnected
+        expr: cloudbox_db_up == 0
+        for: 15s
+        labels:
+          severity: critical
+        annotations:
+          summary: "PostgreSQL Database connection lost"
+          description: "CloudBox backend cannot query the PostgreSQL metadata database."
+
+      - alert: RedisDisconnected
+        expr: cloudbox_redis_up == 0
+        for: 30s
+        labels:
+          severity: warning
+        annotations:
+          summary: "Redis Cache & Broker unavailable"
+          description: "Redis is down. Application is operating under degraded DB fallback mode."
+
+      - alert: BackupJobFailed
+        expr: cloudbox_backup_latest_status == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Automated backup job failed"
+          description: "The most recent scheduled backup or offsite replication run reported a failure."
+
+      - alert: BackupRecoveryVerificationFailed
+        expr: cloudbox_backup_recovery_verification_status == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Disaster Recovery isolated restore verification failed"
+          description: "The isolated test restoration of the latest backup bundle failed verification."
+
+      - alert: LowCacheHitRatio
+        expr: cloudbox_cache_hit_ratio < 0.20 and cloudbox_cache_hits_total > 50
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Redis cache hit ratio is degraded (<20%)"
+          description: "Cache efficiency is lower than expected threshold under active traffic."
+
+      - alert: HighContainerMemoryUsage
+        expr: (container_memory_usage_bytes{name=~"cloudbox-.*"} / container_spec_memory_limit_bytes{name=~"cloudbox-.*"}) > 0.85
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory utilization in container {{ $labels.name }}"
+          description: "Container is utilizing more than 85% of its allocated memory limit."

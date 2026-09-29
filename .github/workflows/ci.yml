@@ -1,0 +1,108 @@
+name: CloudBox CI/CD Quality Pipeline
+
+on:
+  push:
+    branches: [ main, master, 'phase*' ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  backend-tests:
+    name: Backend Test Suite & Security Validation
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: cloudbox_test_db
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Backend Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+          pip install pytest pytest-mock flake8
+
+      - name: Lint and Code Style Validation
+        run: |
+          flake8 backend --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 backend --count --exit-zero --max-complexity=15 --max-line-length=120 --statistics
+
+      - name: Run Backend Pytest Suite
+        env:
+          PYTHONPATH: ./backend
+          APP_ENV: testing
+          JWT_SECRET_KEY: test-jwt-secret-key-12345
+          SECRET_KEY: test-secret-key-12345
+        run: |
+          pytest backend/tests -v
+
+  frontend-build:
+    name: Frontend Build & Asset Compilation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: frontend/package.json
+
+      - name: Install Frontend Dependencies
+        working-directory: ./frontend
+        run: npm ci
+
+      - name: Build Frontend SPA Bundle
+        working-directory: ./frontend
+        run: npm run build
+
+  compose-validation:
+    name: Docker Compose Syntax & Security Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Validate Docker Compose Configuration
+        run: |
+          cp .env.example .env
+          docker compose -f compose.yaml config
+          docker compose -f compose.yaml -f compose.prod.yaml config
+          docker compose -f compose.yaml -f compose.monitoring.yaml config
+
+      - name: Scan for Secret Leaks & Placeholders
+        run: |
+          echo "[*] Checking for committed secret keys..."
+          ! grep -rn "BEGIN RSA PRIVATE KEY" . --exclude-dir={.git,node_modules,certs}

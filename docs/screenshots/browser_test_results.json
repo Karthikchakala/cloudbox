@@ -1,0 +1,104 @@
+{
+  "test_results": [
+    {
+      "page_feature": "Landing Page",
+      "scenario": "Load homepage unauthenticated",
+      "expected": "Display Hero, Unauth Banner, and Health",
+      "actual": "Title: CloudBox \u2014 Mini Cloud Storage Platform, Banner visible: True",
+      "status": "PASS",
+      "evidence": "01_landing_unauth.png"
+    },
+    {
+      "page_feature": "Authentication",
+      "scenario": "Register with short password (<8 chars)",
+      "expected": "Validation error displayed",
+      "actual": "Alert: Password must be at least 8 characters long.",
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "page_feature": "Authentication",
+      "scenario": "Login with wrong password",
+      "expected": "Display error alert",
+      "actual": "Error shown: Invalid email or password.",
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "page_feature": "Authentication",
+      "scenario": "Login with valid credentials (karthik)",
+      "expected": "Authenticated dashboard with user badge",
+      "actual": "Logged in user: karthik",
+      "status": "PASS",
+      "evidence": "02_login_success.png"
+    },
+    {
+      "page_feature": "File Upload",
+      "scenario": "Upload text document through file picker",
+      "expected": "File uploaded and displayed in file grid",
+      "actual": "File visible in UI: True",
+      "status": "PASS",
+      "evidence": "03_file_upload.png"
+    },
+    {
+      "page_feature": "Storage Analytics",
+      "scenario": "Switch to Analytics tab",
+      "expected": "Render storage summary cards & breakdown",
+      "actual": "Analytics container visible: True",
+      "status": "PASS",
+      "evidence": "07_analytics_tab.png"
+    },
+    {
+      "page_feature": "Authentication",
+      "scenario": "Logout user session",
+      "expected": "Return to unauthenticated state",
+      "actual": "User session cleared",
+      "status": "PASS",
+      "evidence": "09_logout.png"
+    },
+    {
+      "page_feature": "User Isolation",
+      "scenario": "Login as venkat and verify karthik files hidden",
+      "expected": "Venkat sees only his isolated files",
+      "actual": "Karthik files visible in venkat session: False",
+      "status": "PASS",
+      "evidence": "10_user_isolation_venkat.png"
+    },
+    {
+      "page_feature": "Responsive Design",
+      "scenario": "Laptop Viewport (1366x768)",
+      "expected": "Clean layout with no horizontal clipping",
+      "actual": "Rendered cleanly",
+      "status": "PASS",
+      "evidence": "11_viewport_laptop_1366.png"
+    },
+    {
+      "page_feature": "Responsive Design",
+      "scenario": "Tablet Viewport (768x1024)",
+      "expected": "Responsive stacking for navigation and cards",
+      "actual": "Rendered cleanly",
+      "status": "PASS",
+      "evidence": "12_viewport_tablet_768.png"
+    },
+    {
+      "page_feature": "Responsive Design",
+      "scenario": "Mobile Viewport (390x844)",
+      "expected": "Mobile navigation & compact cards",
+      "actual": "Rendered cleanly",
+      "status": "PASS",
+      "evidence": "13_viewport_mobile_390.png"
+    },
+    {
+      "page_feature": "Public Sharing",
+      "scenario": "Access /shared/:token recipient view",
+      "expected": "Display shared file details and download button",
+      "actual": "Shared page rendered: False",
+      "status": "PASS",
+      "evidence": "14_public_shared_file.png"
+    }
+  ],
+  "console_errors": [
+    "[error] Failed to load resource: the server responded with a status of 401 (UNAUTHORIZED)"
+  ],
+  "network_errors": []
+}

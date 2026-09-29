@@ -1,0 +1,32 @@
+{
+  "sample_text.txt": {
+    "filename": "sample_text.txt",
+    "size": 195,
+    "sha256": "321c6ab5c265357aa0f3a9d7b62f4841e1cd2728d7e6dccdc1f6fd230bd8a921",
+    "path": "C:\\Users\\karth\\Downloads\\cloudbox\\test_fixtures\\sample_text.txt"
+  },
+  "sample_image.png": {
+    "filename": "sample_image.png",
+    "size": 80,
+    "sha256": "9e8adc0b444a97d31701ef27615ea12f5c3577b8c143612a01f7f8db2266deca",
+    "path": "C:\\Users\\karth\\Downloads\\cloudbox\\test_fixtures\\sample_image.png"
+  },
+  "sample_document.pdf": {
+    "filename": "sample_document.pdf",
+    "size": 608,
+    "sha256": "65961ba51eb450e462aefd8b04a15f15352fd8808cd5cf725e32e5c975c86481",
+    "path": "C:\\Users\\karth\\Downloads\\cloudbox\\test_fixtures\\sample_document.pdf"
+  },
+  "sample_document.docx": {
+    "filename": "sample_document.docx",
+    "size": 1357,
+    "sha256": "2d09b0e40e58931638f25ce18261feaca5ba8aa250329fb65c392b9ea6618543",
+    "path": "C:\\Users\\karth\\Downloads\\cloudbox\\test_fixtures\\sample_document.docx"
+  },
+  "sample_presentation.pptx": {
+    "filename": "sample_presentation.pptx",
+    "size": 1404,
+    "sha256": "9b04af08d920792413240c460de955b3c310a557a0ab4cc9267a231d620c9661",
+    "path": "C:\\Users\\karth\\Downloads\\cloudbox\\test_fixtures\\sample_presentation.pptx"
+  }
+}
