@@ -105,7 +105,41 @@ docker compose -f compose.yaml -f compose.prod.yaml -f compose.monitoring.yaml u
 
 ---
 
-## 4. Disaster Recovery, Replication & Integrity Auditing
+## 4. Multi-Laptop Shared Storage Deployment (Shared DB & MinIO)
+
+CloudBox can run across two independent laptops sharing a single PostgreSQL database and MinIO storage cluster.
+
+### Step 1: Start Shared Storage & Broker Infrastructure
+On the Shared Server (or Laptop 1 as host):
+```bash
+docker compose -f docker-compose.shared.yml pull
+docker compose -f docker-compose.shared.yml up -d
+```
+
+### Step 2: Start Application Nodes
+On Laptop 1 (`.env` configured with `POSTGRES_HOST=<SHARED_IP>`, `MINIO_HOST=<SHARED_IP>`, `REDIS_HOST=<SHARED_IP>`):
+```bash
+docker compose -f docker-compose.laptop1.yml pull
+docker compose -f docker-compose.laptop1.yml up -d
+```
+
+On Laptop 2 (`.env` configured with identical `POSTGRES_HOST`, `MINIO_HOST`, `REDIS_HOST`, and `JWT_SECRET_KEY`):
+```bash
+docker compose -f docker-compose.laptop2.yml pull
+docker compose -f docker-compose.laptop2.yml up -d
+```
+
+### Step 3: Run Cross-Device Verification Suite
+```bash
+python scripts/verify_shared_multi_laptop.py
+```
+
+* Detailed Guide: **[Multi-Laptop Shared Storage Deployment Guide](file:///c:/Users/karth/Downloads/cloudbox/docs/SHARED_STORAGE_DEPLOYMENT_GUIDE.md)**
+* Architecture Audit: **[Shared Storage Architecture Audit](file:///c:/Users/karth/Downloads/cloudbox/docs/SHARED_STORAGE_ARCHITECTURE_AUDIT.md)**
+
+---
+
+## 5. Disaster Recovery, Replication & Integrity Auditing
 
 ### Automated Backup & Off-Site Replication Pipeline
 ```bash
@@ -130,7 +164,7 @@ python scripts/restore_manager.py --isolated
 
 ---
 
-## 5. Automated Deployment & Rollback
+## 6. Automated Deployment & Rollback
 
 ```bash
 # Automated deployment with pre-deploy safety backup and health checks
@@ -144,7 +178,7 @@ bash scripts/rollback.sh               # Linux
 
 ---
 
-## 6. Automated Test Suite (68 / 68 Passing)
+## 7. Automated Test Suite (68 / 68 Passing)
 
 ```bash
 docker compose exec -e PYTHONPATH=. backend pytest -v
@@ -166,7 +200,7 @@ docker compose exec -e PYTHONPATH=. backend pytest -v
 
 ---
 
-## 7. Phase 8 Production Readiness & Master Reports Index
+## 8. Phase 8 Production Readiness & Master Reports Index
 
 * **[Phase 8 Master Implementation Report](file:///c:/Users/karth/Downloads/cloudbox/docs/phase8/PHASE8_FINAL_REPORT.md)**
 * **[Evaluator Final Practical Demonstration Guide (Demos 1–7)](file:///c:/Users/karth/Downloads/cloudbox/docs/phase8/FINAL_DEMO_GUIDE.md)**
@@ -181,7 +215,7 @@ docker compose exec -e PYTHONPATH=. backend pytest -v
 
 ---
 
-## 8. Phase 7 Documentation Index
+## 9. Phase 7 Documentation Index
 
 * **[Phase 7 Implementation Report](file:///c:/Users/karth/Downloads/cloudbox/docs/phase7/PHASE7_IMPLEMENTATION_REPORT.md)**
 * **[Cloud VM Deployment Guide](file:///c:/Users/karth/Downloads/cloudbox/docs/phase7/deployment.md)**
@@ -193,7 +227,7 @@ docker compose exec -e PYTHONPATH=. backend pytest -v
 
 ---
 
-## 9. Safe Shutdown
+## 10. Safe Shutdown
 
 ```bash
 docker compose down

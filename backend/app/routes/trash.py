@@ -3,6 +3,7 @@ from app.extensions import db
 from app.models.file import File
 from app.models.file_version import FileVersion
 from app.services.storage_service import storage_service
+from app.services.cache_service import cache_service
 from app.services.security import jwt_required
 from app.services.audit_logger import log_security_event
 
@@ -43,6 +44,10 @@ def restore_from_trash(file_id):
     try:
         file_record.deleted_at = None
         db.session.commit()
+
+        # Invalidate cached file listings for user
+        cache_service.invalidate_user_cache(str(g.current_user.id))
+        cache_service.invalidate_file_cache(str(file_id))
 
         log_security_event(
             event_type="TRASH",
@@ -99,6 +104,10 @@ def permanently_delete_file(file_id):
         db.session.delete(file_record)
         db.session.commit()
 
+        # Invalidate cache
+        cache_service.invalidate_user_cache(str(g.current_user.id))
+        cache_service.invalidate_file_cache(str(file_id))
+
         log_security_event(
             event_type="TRASH",
             action="TRASH_PERMANENT_DELETE",
@@ -154,6 +163,9 @@ def empty_trash():
             deleted_count += 1
 
         db.session.commit()
+
+        # Invalidate cache for user
+        cache_service.invalidate_user_cache(str(g.current_user.id))
 
         log_security_event(
             event_type="TRASH",

@@ -1,0 +1,98 @@
+# ==============================================================================
+# CloudBox — Laptop 2 Application Node Docker Compose Configuration
+# Runs Nginx, React Frontend, and Flask Backend.
+# Connects to the Shared PostgreSQL and MinIO Server over private network / LAN.
+#
+# Usage:
+#   docker compose -f docker-compose.laptop2.yml up -d
+# ==============================================================================
+
+services:
+  nginx:
+    image: karthik11105/cloudbox-nginx:v1.0.1
+    container_name: cloudbox-laptop2-nginx
+    ports:
+      - "${HTTP_PORT:-80}:80"
+      - "${HTTPS_PORT:-443}:443"
+    networks:
+      - app_net
+    volumes:
+      - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf:ro
+    restart: always
+    healthcheck:
+      test: [ "CMD", "wget", "-q", "-O", "-", "http://localhost/nginx_health" ]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    depends_on:
+      frontend:
+        condition: service_healthy
+      backend:
+        condition: service_healthy
+
+  frontend:
+    image: karthik11105/cloudbox-frontend:v1.0.1
+    container_name: cloudbox-laptop2-frontend
+    ports:
+      - "${FRONTEND_PORT:-5173}:5173"
+    environment:
+      - VITE_API_URL=${VITE_API_URL:-http://localhost:5000}
+    networks:
+      - app_net
+    restart: always
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --spider -q http://127.0.0.1:5173 || exit 1" ]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  backend:
+    image: karthik11105/cloudbox-backend:v1.0.1
+    container_name: cloudbox-laptop2-backend
+    ports:
+      - "${BACKEND_PORT:-5000}:5000"
+    environment:
+      - APP_ENV=${APP_ENV:-production}
+      - FLASK_ENV=${FLASK_ENV:-production}
+      - FLASK_DEBUG=${FLASK_DEBUG:-0}
+      - SECRET_KEY=${SECRET_KEY}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - JWT_ACCESS_TOKEN_EXPIRES=${JWT_ACCESS_TOKEN_EXPIRES:-86400}
+      - MAX_CONTENT_LENGTH=${MAX_CONTENT_LENGTH:-52428800}
+      - BACKEND_PORT=${BACKEND_PORT:-5000}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PORT=${POSTGRES_PORT:-5432}
+      - POSTGRES_DB=${POSTGRES_DB:-cloudbox_db}
+      - POSTGRES_USER=${POSTGRES_USER:-cloudbox_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - MINIO_HOST=${MINIO_HOST}
+      - MINIO_API_PORT=${MINIO_API_PORT:-9000}
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER:-cloudbox_admin}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+      - MINIO_SECURE=${MINIO_SECURE:-false}
+      - MINIO_DEFAULT_BUCKET=${MINIO_DEFAULT_BUCKET:-cloudbox-uploads}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT:-6379}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - CELERY_BROKER_URL=redis://:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT:-6379}/1
+      - CELERY_RESULT_BACKEND=redis://:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT:-6379}/2
+    volumes:
+      - ./backups:/app/backups
+    networks:
+      - app_net
+    restart: always
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:5000/health || exit 1" ]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+networks:
+  app_net:
+    driver: bridge
