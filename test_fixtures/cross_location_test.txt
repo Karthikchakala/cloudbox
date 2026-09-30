@@ -1,0 +1,2 @@
+CloudBox Cross-Location & Cross-Port Verification Test 2026.
+Generated for real browser validation between Instance A (Port 80) and Instance B (Port 8081).

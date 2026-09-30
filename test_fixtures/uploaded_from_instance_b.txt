@@ -1,0 +1,2 @@
+This file was uploaded from Instance B (Port 8081) and accessed via Instance A (Port 80).
+Bi-directional shared storage verification.
