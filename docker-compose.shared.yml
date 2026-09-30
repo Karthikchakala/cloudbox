@@ -97,7 +97,7 @@ services:
   # Shared Celery Background Worker
   # ---------------------------------------------------------------------------
   worker:
-    image: karthik11105/cloudbox-worker:v1.0.1
+    image: karthik11105/cloudbox-worker:v1.0.2
     container_name: cloudbox-shared-worker
     environment:
       - APP_ENV=${APP_ENV:-production}

@@ -9,7 +9,7 @@
 
 services:
   nginx:
-    image: karthik11105/cloudbox-nginx:v1.0.1
+    image: karthik11105/cloudbox-nginx:v1.0.2
     container_name: cloudbox-laptop2-nginx
     ports:
       - "${HTTP_PORT:-80}:80"
@@ -32,7 +32,7 @@ services:
         condition: service_healthy
 
   frontend:
-    image: karthik11105/cloudbox-frontend:v1.0.1
+    image: karthik11105/cloudbox-frontend:v1.0.2
     container_name: cloudbox-laptop2-frontend
     ports:
       - "${FRONTEND_PORT:-5173}:5173"
@@ -52,7 +52,7 @@ services:
         condition: service_healthy
 
   backend:
-    image: karthik11105/cloudbox-backend:v1.0.1
+    image: karthik11105/cloudbox-backend:v1.0.2
     container_name: cloudbox-laptop2-backend
     ports:
       - "${BACKEND_PORT:-5000}:5000"

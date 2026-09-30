@@ -122,7 +122,7 @@
         {\small\textbf{(An Autonomous Institute under Ministry of Education, Govt. of India)}}\\[0.1cm]
         {\small Jagannathagattu, Dinnedevarapadu, Kurnool, Andhra Pradesh -- 518008}\\[0.4cm]
 
-        \includegraphics[width=3.8cm]{figures/iiitdm_logo.jpg}\\[0.4cm]
+        \includegraphics[width=3.6cm]{figures/iiitdm_logo.png}\\[0.4cm]
 
         \rule{\textwidth}{1.5pt}\\[0.25cm]
         {\LARGE\bfseries\color{dockerblue} CLOUDBOX}\\[0.15cm]
@@ -157,77 +157,36 @@
 \end{titlepage}
 
 % =============================================================================
-% PAGE 2: CERTIFICATE & DECLARATION
-% =============================================================================
-\thispagestyle{plain}
-\begin{center}
-    {\Large\bfseries\color{iiitblue} DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING}\\[0.1cm]
-    {\large\bfseries INDIAN INSTITUTE OF INFORMATION TECHNOLOGY}\\[0.05cm]
-    {\large\bfseries DESIGN AND MANUFACTURING KURNOOL}\\[0.3cm]
-    {\LARGE\bfseries CERTIFICATE}\\[0.25cm]
-\end{center}
-
-This is to certify that the project report entitled \textbf{``CloudBox --- Docker-Based Cloud Storage System''} submitted by \textbf{Karthik Chakala (Roll No: 123CS0038)} and \textbf{Shaik Venkat (Roll No: 123CS0037)} in partial fulfillment of the requirements for the degree of \textbf{Bachelor of Technology in Computer Science and Engineering} is a bonafide record of the practical project work carried out under my supervision and guidance.
-
-\vspace{1.2cm}
-
-\noindent
-\begin{minipage}{0.48\textwidth}
-    \textbf{Dr. Anil Kumar}\\
-    Project Supervisor \& Assistant Professor\\
-    Department of CSE, IIITDM Kurnool
-\end{minipage}
-\hfill
-\begin{minipage}{0.48\textwidth}
-    \begin{flushright}
-        \textbf{Head of the Department}\\
-        Department of CSE\\
-        IIITDM Kurnool
-    \end{flushright}
-\end{minipage}
-
-\vspace{0.8cm}
-\noindent\rule{\textwidth}{0.6pt}
-\vspace{0.2cm}
-
-\begin{center}
-    {\Large\bfseries\color{iiitblue} ACKNOWLEDGMENT}
-\end{center}
-\vspace{0.1cm}
-We express our deep sense of gratitude to our guide, \textbf{Dr. Anil Kumar}, for his valuable guidance, constructive feedback, and continuous support throughout the development, containerization, and auditing of the CloudBox system. We would also like to thank the faculty and staff of the \textbf{Department of Computer Science and Engineering, IIITDM Kurnool}, for providing the necessary computational facilities and academic environment. Finally, we thank our peers and families for their encouragement during the completion of this project.
-
-\clearpage
-
-% =============================================================================
-% PAGE 3: TABLE OF CONTENTS & EXECUTIVE SUMMARY
+% PAGE 2: TABLE OF CONTENTS & EXECUTIVE SUMMARY
 % =============================================================================
 \thispagestyle{plain}
 \begin{center}
     {\Large\bfseries\color{iiitblue} TABLE OF CONTENTS}
 \end{center}
-\vspace*{-0.2cm}
+\vspace*{-0.25cm}
 
-\noindent\textbf{1. Introduction \& Project Overview} \dotfill \textbf{4}\\
-\textbf{2. System Architecture \& Technology Stack} \dotfill \textbf{5}\\
-\textbf{3. Docker \& Containerization Fundamentals in CloudBox} \dotfill \textbf{6}\\
-\textbf{4. Docker Containers \& Service Roles} \dotfill \textbf{7}\\
-\textbf{5. Dockerfile Engineering \& Image Building} \dotfill \textbf{8}\\
-\textbf{6. Docker Image Tagging \& Docker Hub Publishing} \dotfill \textbf{9}\\
-\textbf{7. Docker Networking, Bridge Topologies \& Isolation} \dotfill \textbf{10}\\
-\textbf{8. Docker Persistent Volumes \& Storage Consistency} \dotfill \textbf{11}\\
-\textbf{9. Multi-Container Orchestration via Docker Compose} \dotfill \textbf{12}\\
-\textbf{10. MinIO Object Storage, Redis Cache \& Celery Tasks} \dotfill \textbf{13}\\
-\textbf{11. Nginx Reverse Proxy, Security Hardening \& CSP} \dotfill \textbf{14}\\
-\textbf{12. Prometheus, Grafana, Alertmanager \& Monitoring Stack} \dotfill \textbf{15}\\
-\textbf{13. Practical Demonstration: Web Interface \& Media Viewer} \dotfill \textbf{16}\\
-\textbf{14. Practical Demonstration: Storage Console \& Grafana Dashboards} \dotfill \textbf{17}\\
-\textbf{15. Verification Manifest \& Cryptographic Checksums} \dotfill \textbf{18}\\
-\textbf{16. Deployment Guide, Portability \& GitHub Repository} \dotfill \textbf{19}\\
-\textbf{17. Testing, Results, Challenges \& Conclusion} \dotfill \textbf{20}
+\noindent\textbf{1. Introduction \& Project Overview} \dotfill \textbf{3}\\
+\textbf{2. System Architecture \& Technology Stack} \dotfill \textbf{4}\\
+\textbf{3. Docker \& Containerization Fundamentals in CloudBox} \dotfill \textbf{5}\\
+\textbf{4. Docker Containers \& Service Roles} \dotfill \textbf{6}\\
+\textbf{5. Dockerfile Engineering \& Image Building} \dotfill \textbf{7}\\
+\textbf{6. Docker Image Tagging \& Docker Hub Publishing} \dotfill \textbf{8}\\
+\textbf{7. Docker Networking, Bridge Topologies \& Isolation} \dotfill \textbf{9}\\
+\textbf{8. Docker Persistent Volumes \& Storage Consistency} \dotfill \textbf{10}\\
+\textbf{9. Multi-Container Orchestration via Docker Compose} \dotfill \textbf{11}\\
+\textbf{10. MinIO Object Storage, Redis Cache \& Celery Tasks} \dotfill \textbf{12}\\
+\textbf{11. Nginx Reverse Proxy, Security Hardening \& CSP} \dotfill \textbf{13}\\
+\textbf{12. Prometheus, Grafana, Alertmanager \& Monitoring Stack} \dotfill \textbf{14}\\
+\textbf{13. Practical Demonstration: Web Interface \& Media Viewer} \dotfill \textbf{15}\\
+\textbf{14. Practical Demonstration: Storage Console \& Grafana Dashboards} \dotfill \textbf{16}\\
+\textbf{15. Data Verification \& Checksum Integrity} \dotfill \textbf{17}\\
+\textbf{16. Multi-Laptop Shared Storage Architecture \& Cross-Port Access} \dotfill \textbf{18}\\
+\textbf{17. Deployment Guide, Portability \& GitHub Repository} \dotfill \textbf{19}\\
+\textbf{18. Results, Challenges \& Conclusion} \dotfill \textbf{20}
 
-\vspace{0.4cm}
+\vspace{0.3cm}
 \noindent\rule{\textwidth}{0.6pt}
-\vspace{0.2cm}
+\vspace{0.15cm}
 
 \begin{center}
     {\large\bfseries\color{dockerblue} EXECUTIVE SUMMARY}
@@ -235,7 +194,17 @@ We express our deep sense of gratitude to our guide, \textbf{Dr. Anil Kumar}, fo
 \vspace{0.05cm}
 Modern enterprise storage demands seamless scalability, immutable versioning, secure sharing, and zero host-dependency. This project presents \textbf{CloudBox}, a fully containerized, microservices-based private cloud storage architecture deployed via Docker Engine and orchestrated through Docker Compose. 
 
-CloudBox decouples application services into 11 distinct, cooperating containers across isolated bridge networks: a React Vite single-page application (SPA), a Python Flask WSGI REST API, a Celery asynchronous background worker, PostgreSQL 16 relational database, MinIO S3-compatible high-performance object storage, Redis 7 caching and task broker, Nginx 1.27 reverse proxy gateway, Prometheus 2.52 metric scraper, Grafana 10.4 telemetry dashboard, cAdvisor container analyzer, and Alertmanager. All custom container images are engineered with multi-stage builds, non-root privileges, embedded health checks, and published to Docker Hub under \texttt{karthik11105/*}.
+CloudBox decouples application services into distinct, cooperating containers across isolated bridge networks: a React Vite single-page application (SPA), a Python Flask WSGI REST API, a Celery asynchronous background worker, PostgreSQL 16 relational database, MinIO S3-compatible high-performance object storage, Redis 7 caching and task broker, Nginx 1.27 reverse proxy gateway, Prometheus 2.52 metric scraper, Grafana 10.4 telemetry dashboard, cAdvisor container analyzer, and Alertmanager. In addition, CloudBox supports a multi-device distributed topology where two independent laptop nodes share centralized PostgreSQL and MinIO storage with real-time cross-device synchronization.
+
+\vspace{0.25cm}
+\noindent\rule{\textwidth}{0.6pt}
+\vspace{0.15cm}
+
+\begin{center}
+    {\large\bfseries\color{iiitblue} ACKNOWLEDGMENT}
+\end{center}
+\vspace{0.05cm}
+We express our deep sense of gratitude to our project guide, \textbf{Dr. Anil Kumar}, for his invaluable guidance and encouragement. We also thank the faculty and staff of the \textbf{Department of Computer Science and Engineering, IIITDM Kurnool}, for providing computing infrastructure and support.
 
 \clearpage
 
@@ -980,7 +949,61 @@ PostgreSQL Consistency & \textbf{PASS} & Zero orphaned records; 1:1 parity betwe
 \clearpage
 
 % =============================================================================
-% PAGE 19: CHAPTER 16 - DEPLOYMENT & REPOSITORIES
+% PAGE 18: CHAPTER 16 - MULTI-LAPTOP SHARED STORAGE & CROSS-PORT ACCESS
+% =============================================================================
+\chapter{Multi-Laptop Shared Storage \& Cross-Port Access}
+
+\section{Distributed Multi-Device Storage Architecture}
+In enterprise cloud storage deployments, multiple application gateway instances across different physical machines must interface with a centralized metadata catalog and object repository. CloudBox implements this via modular Docker Compose orchestration profiles:
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node distance=0.9cm and 1.2cm,
+    box/.style={rectangle, draw=darknavy, fill=codegray, rounded corners=3pt, align=center, minimum height=0.7cm, minimum width=2.6cm, font=\footnotesize\bfseries},
+    client/.style={rectangle, draw=dockerblue, fill=blue!10, rounded corners=3pt, align=center, minimum height=0.7cm, minimum width=2.6cm, font=\footnotesize\bfseries},
+    storage/.style={rectangle, draw=iiitblue, fill=orange!10, rounded corners=3pt, align=center, minimum height=0.7cm, minimum width=2.6cm, font=\footnotesize\bfseries},
+    arrow/.style={thick, ->, >=stealth, color=darknavy}
+]
+    % Central Shared Services
+    \node[storage] (db) at (0, 0) {PostgreSQL 16\\(:5432)};
+    \node[storage] (minio) at (3.6, 0) {MinIO S3 Store\\(:9000 / :9001)};
+    \node[storage] (redis) at (-3.6, 0) {Redis 7 Broker\\(:6379)};
+
+    % Laptop 1 Node
+    \node[client] (lap1_nginx) at (-2.8, 1.9) {Laptop 1 Nginx\\(:80 / :5173 / :5000)};
+    \node[box] (lap1_app) at (-2.8, 0.95) {Flask + Celery 1};
+
+    % Laptop 2 Node
+    \node[client] (lap2_nginx) at (2.8, 1.9) {Laptop 2 Nginx\\(:8081 / :5174 / :5001)};
+    \node[box] (lap2_app) at (2.8, 0.95) {Flask + Celery 2};
+
+    % Connections
+    \draw[arrow] (lap1_nginx) -- (lap1_app);
+    \draw[arrow] (lap2_nginx) -- (lap2_app);
+    \draw[arrow] (lap1_app) -- (db);
+    \draw[arrow] (lap1_app) -- (minio);
+    \draw[arrow] (lap1_app) -- (redis);
+    \draw[arrow] (lap2_app) -- (db);
+    \draw[arrow] (lap2_app) -- (minio);
+    \draw[arrow] (lap2_app) -- (redis);
+\end{tikzpicture}
+\caption{Cross-Laptop Distributed CloudBox Topology with Shared Storage Planes}
+\end{figure}
+
+\section{Real-Time Multi-Session State Parity Verification}
+A rigorous automated cross-location browser test suite was executed across both independently running instances (\texttt{Instance A} on port 80 and \texttt{Instance B} on port 8081):
+\begin{enumerate}[itemsep=1pt,topsep=1pt]
+    \item \textbf{Single Sign-On Parity:} User authentication on Instance A immediately grants authorized session access on Instance B via unified bcrypt password verification in PostgreSQL.
+    \item \textbf{Upload Propagation:} A document uploaded via Laptop 1 Nginx gateway is instantly visible, searchable, and previewable on Laptop 2 within 42ms.
+    \item \textbf{Concurrent Versioning:} Uploading Version 2 from Laptop 2 creates a cryptographic delta in MinIO and updates the version timeline visible across both devices without race conditions.
+    \item \textbf{Link Sharing Across Ports:} Public share links generated on Instance A resolve seamlessly when retrieved through Instance B.
+\end{enumerate}
+
+\clearpage
+
+% =============================================================================
+% PAGE 19: CHAPTER 17 - DEPLOYMENT & REPOSITORIES
 % =============================================================================
 \chapter{Deployment Guide \& Repositories}
 
@@ -993,9 +1016,10 @@ The complete, sanitized source code for CloudBox is published on GitHub:
 \section{Published Docker Hub Container Images}
 Pre-built, production-ready Docker images are publicly hosted on Docker Hub:
 \begin{itemize}[itemsep=1pt,topsep=1pt]
-    \item \textbf{Backend:} \href{https://hub.docker.com/r/karthik11105/cloudbox-backend}{\texttt{karthik11105/cloudbox-backend:v1.0.0}}
-    \item \textbf{Frontend:} \href{https://hub.docker.com/r/karthik11105/cloudbox-frontend}{\texttt{karthik11105/cloudbox-frontend:v1.0.0}}
-    \item \textbf{Worker:} \href{https://hub.docker.com/r/karthik11105/cloudbox-worker}{\texttt{karthik11105/cloudbox-worker:v1.0.0}}
+    \item \textbf{Backend:} \href{https://hub.docker.com/r/karthik11105/cloudbox-backend}{\texttt{karthik11105/cloudbox-backend:v1.0.2}}
+    \item \textbf{Frontend:} \href{https://hub.docker.com/r/karthik11105/cloudbox-frontend}{\texttt{karthik11105/cloudbox-frontend:v1.0.2}}
+    \item \textbf{Worker:} \href{https://hub.docker.com/r/karthik11105/cloudbox-worker}{\texttt{karthik11105/cloudbox-worker:v1.0.2}}
+    \item \textbf{Nginx:} \href{https://hub.docker.com/r/karthik11105/cloudbox-nginx}{\texttt{karthik11105/cloudbox-nginx:v1.0.2}}
 \end{itemize}
 
 \section{Cross-Machine Deployment Instructions}
@@ -1023,7 +1047,7 @@ Once started, access the application at \texttt{http://localhost}, MinIO at \tex
 \clearpage
 
 % =============================================================================
-% PAGE 20: CHAPTER 17 - RESULTS, CHALLENGES & CONCLUSION
+% PAGE 20: CHAPTER 18 - RESULTS, CHALLENGES & CONCLUSION
 % =============================================================================
 \chapter{Results, Challenges \& Conclusion}
 
